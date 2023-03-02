@@ -47,6 +47,7 @@ const displayData = (tools, dataLimit) => {
         cardsContainer.appendChild(card);
         showFeatures(tool.features, tool.id);
     });
+    progressBar(false);
 }
 
 const showFeatures = (features, id) => {
@@ -63,8 +64,19 @@ const emptyDataContainer = () => {
     cardsContainer.innerHTML = '';
 }
 
+const progressBar = (isLoading) => {
+    const processBar = document.getElementById('progress-bar');
+    if (isLoading) {
+        processBar.classList.remove('hidden');
+    }
+    else {
+        processBar.classList.add('hidden');
+    }
+}
+
 const processData = (dataLimit = false) => {
     emptyDataContainer();
+    progressBar(true);
     loadData(dataLimit);
 }
 
