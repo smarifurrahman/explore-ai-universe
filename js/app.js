@@ -7,7 +7,6 @@ const loadData = async (dataLimit) => {
 }
 
 const displayData = (tools, dataLimit) => {
-    // console.log(tools.length);
     const cardsContainer = document.getElementById('cards-container');
     const btnShowMore = document.getElementById('btn-see-more');
     if (dataLimit && dataLimit < tools.length) {
@@ -93,14 +92,14 @@ const loadDetailsModal = async (id) => {
 }
 
 const displayDetailsModal = (data) => {
-    console.log();
+    console.log(data.integrations);
     const modalCards = document.getElementById('modal-cards-container');
     const cardOne = document.createElement('div');
     cardOne.classList.add('card', 'w-96', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
     cardOne.innerHTML = `
     <!-- card 1 -->
     <div class="px-7 py-7">
-        <h2 class="card-title">ChatGPT is an AI-powered chatbot platform that uses OpenAI's GPT technology to simulate human conversation.</h2>
+        <h2 class="card-title">${data.description}</h2>
     </div>
 
     <div class="flex gap-3 px-7 text-center">
@@ -118,25 +117,24 @@ const displayDetailsModal = (data) => {
     <div class="card-body p-7 text-left">
         <div class="flex justify-between gap-5">
             <div class="w-full">
-                <h2 class="card-title">Features</h2>
-                <ul>
+                <h2 class="card-title mb-2">Features</h2>
+                <ul class="list-disc pl-6 text-secondary">
                     <li>Customizable</li>
                     <li>Customizable</li>
                     <li>Customizable</li>
                 </ul>
             </div>
             <div class="w-full">
-                <h2 class="card-title">Features</h2>
-                <ul>
-                    <li>Customizable</li>
-                    <li>Customizable</li>
-                    <li>Customizable</li>
+                <h2 class="card-title mb-2">Integrations</h2>
+                <ul id="integrations-${data.id}" class="list-disc pl-6 text-secondary">
+                    
                 </ul>
             </div>
         </div>
     </div>
     `;
     modalCards.appendChild(cardOne);
+    modalUl(data.integrations, data.id);
 
     const cardTwo = document.createElement('div');
     cardTwo.classList.add('card', 'w-96', 'bg-base-100', 'shadow-xl', 'border');
@@ -151,6 +149,22 @@ const displayDetailsModal = (data) => {
     </div>
     `;
     modalCards.appendChild(cardTwo);
+}
+
+const modalUl = (listItems, id) => {
+    const ul = document.getElementById(`integrations-${id}`);
+    console.log(listItems)
+    if (listItems) {
+        listItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerText = item;
+            ul.appendChild(li);
+        });
+    }
+    else {
+        ul.innerHTML = `<p>No Data Found</p>`;
+    }
+
 }
 
 const emptyModalContainer = () => {
