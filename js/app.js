@@ -38,7 +38,7 @@ const displayData = (tools, dataLimit) => {
                         <p><i class="fa-solid fa-calendar-days mr-1 text-secondary"></i> ${tool.published_in}</p>
                     </div>
                     <div>
-                        <label for="my-modal-5"><i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-bgPrimary"></i></label>
+                        <label onclick="processModal('${tool.id}')" for="my-modal-5"><i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-bgPrimary"></i></label>
                     </div>
                 </div>
             </div>
@@ -83,5 +83,84 @@ const processData = (dataLimit = false) => {
 document.getElementById('btn-see-more').addEventListener('click', function () {
     processData();
 });
+
+// show data in modal
+const loadDetailsModal = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayDetailsModal(data.data);
+}
+
+const displayDetailsModal = (data) => {
+    console.log(data.image_link[0]);
+    const modalCards = document.getElementById('modal-cards-container');
+    const cardOne = document.createElement('div');
+    cardOne.classList.add('card', 'w-96', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
+    cardOne.innerHTML = `
+    <!-- card 1 -->
+    <div class="px-7 py-7">
+        <h2 class="card-title">ChatGPT is an AI-powered chatbot platform that uses OpenAI's GPT technology to simulate human conversation.</h2>
+    </div>
+
+    <div class="flex gap-3 px-7 text-center">
+        <div class="bg-white px-4 py-3 text-green-600 font-semibold rounded-xl">
+            <p>$10 / month Basic</p>
+        </div>
+        <div class="bg-white px-4 py-3 text-orange-600 font-semibold rounded-xl">
+            <p>$10 / month Basic</p>
+        </div>
+        <div class="bg-white px-4 py-3 text-rose-600 font-semibold rounded-xl">
+            <p>$10 / month Basic</p>
+        </div>
+    </div>
+
+    <div class="card-body p-7 text-left">
+        <div class="flex justify-between gap-5">
+            <div class="w-full">
+                <h2 class="card-title">Features</h2>
+                <ul>
+                    <li>Customizable</li>
+                    <li>Customizable</li>
+                    <li>Customizable</li>
+                </ul>
+            </div>
+            <div class="w-full">
+                <h2 class="card-title">Features</h2>
+                <ul>
+                    <li>Customizable</li>
+                    <li>Customizable</li>
+                    <li>Customizable</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    `;
+    modalCards.appendChild(cardOne);
+
+    const cardTwo = document.createElement('div');
+    cardTwo.classList.add('card', 'w-96', 'bg-base-100', 'shadow-xl', 'border');
+    cardTwo.innerHTML = `
+    <!-- card 2 -->
+    <figure class="px-7 pt-7">
+        <img src="https://vhaccounting.ca/wp-content/uploads/2023/02/iStock-1459275692.jpg" alt="picture" class="rounded-xl" />
+    </figure>
+    <div class="card-body p-7 items-center text-center">
+        <h2 class="card-title">Hi, how are you doing today?</h2>
+        <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+    </div>
+    `;
+    modalCards.appendChild(cardTwo);
+}
+
+const emptyModalContainer = () => {
+    const modalCards = document.getElementById('modal-cards-container');
+    modalCards.innerHTML = '';
+}
+
+const processModal = (id) => {
+    emptyModalContainer();
+    loadDetailsModal(id);
+}
 
 processData(dataLimit);
