@@ -93,7 +93,7 @@ const loadDetailsModal = async (id) => {
 }
 
 const displayDetailsModal = (data) => {
-    console.log(data.image_link[0]);
+    console.log();
     const modalCards = document.getElementById('modal-cards-container');
     const cardOne = document.createElement('div');
     cardOne.classList.add('card', 'w-96', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
@@ -143,11 +143,11 @@ const displayDetailsModal = (data) => {
     cardTwo.innerHTML = `
     <!-- card 2 -->
     <figure class="px-7 pt-7">
-        <img src="https://vhaccounting.ca/wp-content/uploads/2023/02/iStock-1459275692.jpg" alt="picture" class="rounded-xl" />
+        <img src="${data.image_link[0]}" alt="picture" class="rounded-xl" />
     </figure>
     <div class="card-body p-7 items-center text-center">
-        <h2 class="card-title">Hi, how are you doing today?</h2>
-        <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+        <h2 class="card-title">${data.input_output_examples ? data.input_output_examples[0].input : 'Can you give any example?'}</h2>
+        <p>${data.input_output_examples ? data.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
     </div>
     `;
     modalCards.appendChild(cardTwo);
