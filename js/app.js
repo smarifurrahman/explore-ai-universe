@@ -23,7 +23,7 @@ const displayData = (tools, dataLimit) => {
         <!-- card -->
         <div class="card w-96 bg-base-100 shadow-xl border h-full">
             <figure class="px-7 pt-7">
-                <img src="${tool.image}" alt="Shoes"
+                <img src="${tool.image}" alt="${tool.name}"
                     class="rounded-xl" />
             </figure>
             <div class="card-body p-7 items-start text-left">
@@ -38,7 +38,7 @@ const displayData = (tools, dataLimit) => {
                         <p><i class="fa-solid fa-calendar-days mr-1 text-secondary"></i> ${tool.published_in}</p>
                     </div>
                     <div>
-                        <i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-bgPrimary"></i>
+                        <label for="my-modal-5"><i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-bgPrimary"></i></label>
                     </div>
                 </div>
             </div>
