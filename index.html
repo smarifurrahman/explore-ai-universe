@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Universe Hub</title>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/aae5e146e7.js" crossorigin="anonymous"></script>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- tailwind daisy UI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +21,11 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#da373d',
+                        primary: '#EB5757',
+                        hoverPrimary: '#eb4343',
+                    },
+                    fontFamily: {
+                        primary: ['Work Sans', 'sans-serif'],
                     }
                 }
             }
@@ -23,17 +34,43 @@
 
 </head>
 
-<body>
+<body class="font-primary">
     <!-- header -->
     <header class="text-center py-10">
-        <h1 class="text-4xl font-semibold mb-6">AI Universe Hub</h1>
-        <button class="btn text-white">Sort By Date</button>
+        <h1 class="text-5xl font-semibold mb-6">AI Universe Hub</h1>
+        <button class="btn bg-primary hover:bg-hoverPrimary border-none text-white capitalize text-lg">Sort By Date</button>
     </header>
     <!-- main -->
     <main>
         <!-- card section -->
         <section>
-
+            <!-- cards -->
+            <div>
+                <!-- card -->
+                <div class="card w-96 bg-base-100 shadow-xl border">
+                    <figure class="px-7 pt-7">
+                        <img src="https://vhaccounting.ca/wp-content/uploads/2023/02/iStock-1459275692.jpg" alt="Shoes" class="rounded-xl" />
+                    </figure>
+                    <div class="card-body p-7 items-start text-left">
+                        <h2 class="card-title">Features</h2>
+                        <div class="w-full">
+                            <p>1. Natural language processing</p>
+                            <p>2. Contextual understanding</p>
+                            <p>3. Text generation</p>
+                        </div>
+                        <hr class="w-full">
+                        <div class="card-actions w-full flex justify-between items-center">
+                            <div>
+                                <h2 class="card-title mb-1.5">ChatGPT</h2>
+                                <p><i class="fa-solid fa-calendar-days mr-1"></i> 11/01/2022</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-[#FEF7F7]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </body>
