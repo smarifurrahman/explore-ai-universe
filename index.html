@@ -39,8 +39,9 @@
 <body class="font-primary">
     <!-- header -->
     <header class="text-center py-10">
-        <h1 class="text-5xl font-semibold mb-6">AI Universe Hub</h1>
-        <button class="btn bg-primary hover:bg-hoverPrimary border-none text-white capitalize text-lg">Sort By
+        <h1 class="text-4xl sm:text-5xl font-semibold mb-6">AI Universe Hub</h1>
+        <button id="btn-sort-by"
+            class="btn bg-primary hover:bg-hoverPrimary border-none text-white capitalize text-lg">Sort By
             Date</button>
     </header>
     <!-- main -->
@@ -53,8 +54,8 @@
         <!-- card section -->
         <section>
             <!-- cards container -->
-            <div id="cards-container" class="grid grid-cols-3 gap-6">
-
+            <div id="cards-container" class="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 justify-center">
+                <!-- will load from js -->
             </div>
         </section>
 
@@ -69,11 +70,12 @@
         <div>
             <input type="checkbox" id="my-modal-5" class="modal-toggle" />
             <div class="modal">
-                <div class="modal-box w-11/12 max-w-6xl relative">
-                    <div class="modal-action mt-0 absolute right-7">
-                        <label for="my-modal-5"><i class="fa-solid fa-xmark px-4 py-3 rounded-full text-primary bg-bgPrimary"></i></label>
+                <div class="modal-box w-11/12 max-w-5xl md:max-w-6xl">
+                    <div class="modal-action mt-0 mb-4">
+                        <label for="my-modal-5"><i
+                                class="fa-solid fa-xmark px-4 py-3 rounded-full text-primary bg-bgPrimary"></i></label>
                     </div>
-                    <div id="modal-cards-container" class="flex gap-6 justify-center my-6">
+                    <div id="modal-cards-container" class="grid xl:grid-cols-2 gap-6 justify-center mb-10">
                         <!-- will load from js -->
                     </div>
                 </div>

@@ -17,10 +17,13 @@ const displayData = (tools, dataLimit) => {
         btnShowMore.classList.add('hidden');
     }
     tools.forEach(tool => {
+        // const pubDate = new Date(tool.published_in);
+        // console.log(pubDate.getTime());
+
         const card = document.createElement('div');
         card.innerHTML = `
         <!-- card -->
-        <div class="card w-96 bg-base-100 shadow-xl border h-full">
+        <div class="card w-80 sm:w-96 bg-base-100 shadow-xl border h-full">
             <figure class="px-7 pt-7">
                 <img src="${tool.image}" alt="${tool.name}"
                     class="rounded-xl" />
@@ -94,27 +97,27 @@ const loadDetailsModal = async (id) => {
 const displayDetailsModal = (data) => {
     const modalCards = document.getElementById('modal-cards-container');
     const cardOne = document.createElement('div');
-    cardOne.classList.add('card', 'w-[450px]', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
+    cardOne.classList.add('card', 'mx-auto', 'w-72', 'sm:w-[450px]', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
     cardOne.innerHTML = `
     <!-- card 1 -->
     <div class="px-7 py-7">
-        <h2 class="card-title">${data.description}</h2>
+        <h2 class="card-title text-center sm:text-left">${data.description}</h2>
     </div>
 
-    <div id="price-list-${data.id}" class="flex gap-3 px-7 text-center">
-        <div class="bg-white px-4 py-3 text-green-600 font-semibold rounded-xl flex justify-center items-center">
+    <div id="price-list-${data.id}" class="sm:flex gap-3 px-7 text-center">
+        <div class="bg-white px-4 py-3 text-green-600 font-semibold rounded-xl flex justify-center items-center mb-4 sm:mb-0">
             <p>${data.pricing ? data.pricing[0].price : 'Free Of Cost/ '} Basic</p>
         </div>
-        <div class="bg-white px-4 py-3 text-orange-600 font-semibold rounded-xl flex justify-center items-center">
+        <div class="bg-white px-4 py-3 text-orange-600 font-semibold rounded-xl flex justify-center items-center mb-4 sm:mb-0">
             <p>${data.pricing ? data.pricing[1].price : 'Free Of Cost/ '} Pro</p>
         </div>
-        <div class="bg-white px-4 py-3 text-rose-600 font-semibold rounded-xl flex justify-center items-center">
+        <div class="bg-white px-4 py-3 text-rose-600 font-semibold rounded-xl flex justify-center items-center mb-4 sm:mb-0">
             <p>${data.pricing ? data.pricing[2].price : 'Free Of Cost/ '} Enterprise</p>
         </div>
     </div>
 
     <div class="card-body p-7 text-left">
-        <div class="flex justify-between gap-5">
+        <div class="sm:flex justify-between gap-5">
             <div class="w-full">
                 <h2 class="card-title mb-2">Features</h2>
                 <ul id="ul-features-${data.id}" class="list-disc text-secondary">
@@ -135,7 +138,7 @@ const displayDetailsModal = (data) => {
     modalIntegration(data.integrations, data.id);
 
     const cardTwo = document.createElement('div');
-    cardTwo.classList.add('card', 'w-[450px]', 'bg-base-100', 'shadow-xl', 'border');
+    cardTwo.classList.add('card', 'mx-auto', 'w-72', 'sm:w-[450px]', 'bg-base-100', 'shadow-xl', 'border');
     cardTwo.innerHTML = `
     <!-- card 2 -->
     <figure class="px-7 pt-7 relative">
@@ -202,5 +205,9 @@ const processModal = (id) => {
     emptyModalContainer();
     loadDetailsModal(id);
 }
+
+// document.getElementById('btn-sort-by').addEventListener('click', function () {
+//     console.log('aaa')
+// });
 
 processData(dataLimit);
