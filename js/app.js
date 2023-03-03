@@ -92,7 +92,7 @@ const loadDetailsModal = async (id) => {
 }
 
 const displayDetailsModal = (data) => {
-    console.log(data.integrations);
+    // console.log(data.features[1].feature_name);
     const modalCards = document.getElementById('modal-cards-container');
     const cardOne = document.createElement('div');
     cardOne.classList.add('card', 'w-96', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
@@ -118,15 +118,13 @@ const displayDetailsModal = (data) => {
         <div class="flex justify-between gap-5">
             <div class="w-full">
                 <h2 class="card-title mb-2">Features</h2>
-                <ul class="list-disc pl-6 text-secondary">
-                    <li>Customizable</li>
-                    <li>Customizable</li>
-                    <li>Customizable</li>
+                <ul id="ul-features-${data.id}" class="list-disc text-secondary">
+                    
                 </ul>
             </div>
             <div class="w-full">
                 <h2 class="card-title mb-2">Integrations</h2>
-                <ul id="integrations-${data.id}" class="list-disc pl-6 text-secondary">
+                <ul id="integrations-${data.id}" class="list-disc text-secondary">
                     
                 </ul>
             </div>
@@ -134,7 +132,8 @@ const displayDetailsModal = (data) => {
     </div>
     `;
     modalCards.appendChild(cardOne);
-    modalUl(data.integrations, data.id);
+    modalIntegration(data.integrations, data.id);
+    modalFeature(data.features, data.id);
 
     const cardTwo = document.createElement('div');
     cardTwo.classList.add('card', 'w-96', 'bg-base-100', 'shadow-xl', 'border');
@@ -151,12 +150,12 @@ const displayDetailsModal = (data) => {
     modalCards.appendChild(cardTwo);
 }
 
-const modalUl = (listItems, id) => {
+const modalIntegration = (integrations, id) => {
     const ul = document.getElementById(`integrations-${id}`);
-    console.log(listItems)
-    if (listItems) {
-        listItems.forEach(item => {
+    if (integrations) {
+        integrations.forEach(item => {
             const li = document.createElement('li');
+            li.classList.add('ml-5');
             li.innerText = item;
             ul.appendChild(li);
         });
@@ -164,7 +163,21 @@ const modalUl = (listItems, id) => {
     else {
         ul.innerHTML = `<p>No Data Found</p>`;
     }
+}
 
+const modalFeature = (features, id) => {
+    const ul = document.getElementById(`ul-features-${id}`);
+    if (features) {
+        for (const key in features) {
+            const li = document.createElement('li');
+            li.classList.add('ml-5');
+            li.innerText = features[key].feature_name;
+            ul.appendChild(li);
+        }
+    }
+    else {
+        ul.innerHTML = `<p>No Data Found</p>`;
+    }
 }
 
 const emptyModalContainer = () => {
