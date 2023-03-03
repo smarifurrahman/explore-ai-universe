@@ -92,10 +92,9 @@ const loadDetailsModal = async (id) => {
 }
 
 const displayDetailsModal = (data) => {
-    // console.log(data.features[1].feature_name);
     const modalCards = document.getElementById('modal-cards-container');
     const cardOne = document.createElement('div');
-    cardOne.classList.add('card', 'w-96', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
+    cardOne.classList.add('card', 'w-[450px]', 'bg-bgPrimary', 'shadow-xl', 'border', 'border-[#EB5757]');
     cardOne.innerHTML = `
     <!-- card 1 -->
     <div class="px-7 py-7">
@@ -103,7 +102,15 @@ const displayDetailsModal = (data) => {
     </div>
 
     <div id="price-list-${data.id}" class="flex gap-3 px-7 text-center">
-    
+        <div class="bg-white px-4 py-3 text-green-600 font-semibold rounded-xl flex justify-center items-center">
+            <p>${data.pricing ? data.pricing[0].price : 'Free Of Cost/ '} Basic</p>
+        </div>
+        <div class="bg-white px-4 py-3 text-orange-600 font-semibold rounded-xl flex justify-center items-center">
+            <p>${data.pricing ? data.pricing[1].price : 'Free Of Cost/ '} Pro</p>
+        </div>
+        <div class="bg-white px-4 py-3 text-rose-600 font-semibold rounded-xl flex justify-center items-center">
+            <p>${data.pricing ? data.pricing[2].price : 'Free Of Cost/ '} Enterprise</p>
+        </div>
     </div>
 
     <div class="card-body p-7 text-left">
@@ -125,16 +132,16 @@ const displayDetailsModal = (data) => {
     `;
     modalCards.appendChild(cardOne);
     modalFeature(data.features, data.id);
-    modalPricing(data.pricing, data.id);
     modalIntegration(data.integrations, data.id);
 
     const cardTwo = document.createElement('div');
-    cardTwo.classList.add('card', 'w-96', 'bg-base-100', 'shadow-xl', 'border');
+    cardTwo.classList.add('card', 'w-[450px]', 'bg-base-100', 'shadow-xl', 'border');
     cardTwo.innerHTML = `
     <!-- card 2 -->
-    <figure class="px-7 pt-7">
+    <figure class="px-7 pt-7 relative">
+        <div class="badge bg-primary border-none absolute top-9 right-9 py-3">${data.accuracy.score * 100}% accuracy</div>
         <img src="${data.image_link[0]}" alt="picture" class="rounded-xl" />
-    </figure>
+        </figure>
     <div class="card-body p-7 items-center text-center">
         <h2 class="card-title">${data.input_output_examples ? data.input_output_examples[0].input : 'Can you give any example?'}</h2>
         <p>${data.input_output_examples ? data.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
@@ -156,20 +163,6 @@ const modalIntegration = (integrations, id) => {
     else {
         ul.innerHTML = `<p>No Data Found</p>`;
     }
-}
-
-const modalPricing = (pricing, id) => {
-    const pricingContainer = document.getElementById(`price-list-${id}`);
-    pricing.forEach(plan => {
-        const planContainer = document.createElement('div');
-        planContainer.classList.add('bg-white', 'px-4', 'py-3', 'text-green-600', 'font-semibold', 'rounded-xl');
-        for (const key in plan) {
-            const p = document.createElement('p');
-            p.innerText = plan[key];
-            planContainer.appendChild(p);
-        }
-        pricingContainer.appendChild(planContainer);
-    })
 }
 
 const modalFeature = (features, id) => {
