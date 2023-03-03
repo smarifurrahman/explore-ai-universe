@@ -17,9 +17,6 @@ const displayData = (tools, dataLimit) => {
         btnShowMore.classList.add('hidden');
     }
     tools.forEach(tool => {
-        // const pubDate = new Date(tool.published_in);
-        // console.log(pubDate.getTime());
-
         const card = document.createElement('div');
         card.innerHTML = `
         <!-- card -->
@@ -48,6 +45,33 @@ const displayData = (tools, dataLimit) => {
         `;
         cardsContainer.appendChild(card);
         showFeatures(tool.features, tool.id);
+    });
+
+    const sorting = (a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+        if (dateA > dateB) {
+            return 1;
+        }
+        else if (dateA < dateB) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    document.getElementById('btn-sort-by').addEventListener('click', function () {
+        emptyDataContainer();
+        progressBar(true);
+        const sortedData = tools.sort(sorting);
+        if (sortedData.length === dataLimit) {
+            displayData(sortedData);
+            btnShowMore.classList.remove('hidden');
+        }
+        else {
+            displayData(sortedData);
+        }
     });
     progressBar(false);
 }
