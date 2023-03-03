@@ -139,8 +139,10 @@ const displayDetailsModal = (data) => {
     cardTwo.innerHTML = `
     <!-- card 2 -->
     <figure class="px-7 pt-7 relative">
-        <div class="badge bg-primary border-none absolute top-9 right-9 py-3">${data.accuracy.score * 100}% accuracy</div>
         <img src="${data.image_link[0]}" alt="picture" class="rounded-xl" />
+        <div id="accuracy-badge-${data.id}">
+            
+        </div>
         </figure>
     <div class="card-body p-7 items-center text-center">
         <h2 class="card-title">${data.input_output_examples ? data.input_output_examples[0].input : 'Can you give any example?'}</h2>
@@ -148,6 +150,22 @@ const displayDetailsModal = (data) => {
     </div>
     `;
     modalCards.appendChild(cardTwo);
+    displayAccuracy(data.accuracy, data.id);
+}
+
+const modalFeature = (features, id) => {
+    const ul = document.getElementById(`ul-features-${id}`);
+    if (features) {
+        for (const key in features) {
+            const li = document.createElement('li');
+            li.classList.add('ml-5');
+            li.innerText = features[key].feature_name;
+            ul.appendChild(li);
+        }
+    }
+    else {
+        ul.innerHTML = `<p>No Data Found</p>`;
+    }
 }
 
 const modalIntegration = (integrations, id) => {
@@ -165,18 +183,13 @@ const modalIntegration = (integrations, id) => {
     }
 }
 
-const modalFeature = (features, id) => {
-    const ul = document.getElementById(`ul-features-${id}`);
-    if (features) {
-        for (const key in features) {
-            const li = document.createElement('li');
-            li.classList.add('ml-5');
-            li.innerText = features[key].feature_name;
-            ul.appendChild(li);
-        }
-    }
-    else {
-        ul.innerHTML = `<p>No Data Found</p>`;
+const displayAccuracy = (accuracy, id) => {
+    if (accuracy.score) {
+        const badgeContainer = document.getElementById(`accuracy-badge-${id}`);
+        const accuracyBadge = document.createElement('div');
+        accuracyBadge.classList.add('badge', 'bg-primary', 'border-none', 'absolute', 'top-9', 'right-9', 'py-3');
+        accuracyBadge.innerText = `${accuracy.score * 100}% accuracy`;
+        badgeContainer.appendChild(accuracyBadge);
     }
 }
 
