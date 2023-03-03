@@ -102,16 +102,8 @@ const displayDetailsModal = (data) => {
         <h2 class="card-title">${data.description}</h2>
     </div>
 
-    <div class="flex gap-3 px-7 text-center">
-        <div class="bg-white px-4 py-3 text-green-600 font-semibold rounded-xl">
-            <p>$10 / month Basic</p>
-        </div>
-        <div class="bg-white px-4 py-3 text-orange-600 font-semibold rounded-xl">
-            <p>$10 / month Basic</p>
-        </div>
-        <div class="bg-white px-4 py-3 text-rose-600 font-semibold rounded-xl">
-            <p>$10 / month Basic</p>
-        </div>
+    <div id="price-list-${data.id}" class="flex gap-3 px-7 text-center">
+    
     </div>
 
     <div class="card-body p-7 text-left">
@@ -132,8 +124,9 @@ const displayDetailsModal = (data) => {
     </div>
     `;
     modalCards.appendChild(cardOne);
-    modalIntegration(data.integrations, data.id);
     modalFeature(data.features, data.id);
+    modalPricing(data.pricing, data.id);
+    modalIntegration(data.integrations, data.id);
 
     const cardTwo = document.createElement('div');
     cardTwo.classList.add('card', 'w-96', 'bg-base-100', 'shadow-xl', 'border');
@@ -163,6 +156,20 @@ const modalIntegration = (integrations, id) => {
     else {
         ul.innerHTML = `<p>No Data Found</p>`;
     }
+}
+
+const modalPricing = (pricing, id) => {
+    const pricingContainer = document.getElementById(`price-list-${id}`);
+    pricing.forEach(plan => {
+        const planContainer = document.createElement('div');
+        planContainer.classList.add('bg-white', 'px-4', 'py-3', 'text-green-600', 'font-semibold', 'rounded-xl');
+        for (const key in plan) {
+            const p = document.createElement('p');
+            p.innerText = plan[key];
+            planContainer.appendChild(p);
+        }
+        pricingContainer.appendChild(planContainer);
+    })
 }
 
 const modalFeature = (features, id) => {
