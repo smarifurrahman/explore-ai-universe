@@ -21,6 +21,8 @@ const displayData = (tools, dataLimit) => {
         btnShowMore.classList.add('hidden');
     }
     tools.forEach(tool => {
+        const pubDate = new Date(tool.published_in);
+        const formattedDate = pubDate.toLocaleDateString('en-US', {day: '2-digit', month: '2-digit', year: 'numeric'});
         const card = document.createElement('div');
         card.innerHTML = `
         <!-- card -->
@@ -38,7 +40,7 @@ const displayData = (tools, dataLimit) => {
                 <div class="card-actions w-full flex justify-between items-center mt-2">
                     <div>
                         <h2 class="card-title mb-1.5">${tool.name}</h2>
-                        <p><i class="fa-solid fa-calendar-days mr-1 text-secondary"></i> ${tool.published_in}</p>
+                        <p><i class="fa-solid fa-calendar-days mr-1 text-secondary"></i> ${formattedDate}</p>
                     </div>
                     <div>
                         <label onclick="processModal('${tool.id}')" for="my-modal-5"><i class="fa-solid fa-arrow-right p-4 rounded-full text-primary bg-bgPrimary"></i></label>
