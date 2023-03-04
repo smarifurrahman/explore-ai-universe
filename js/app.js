@@ -1,4 +1,3 @@
-const dataLimit = 6;
 const loadData = async (dataLimit) => {
     const url = 'https://openapi.programming-hero.com/api/ai/tools';
     const res = await fetch(url);
@@ -6,7 +5,12 @@ const loadData = async (dataLimit) => {
     displayData(data.data.tools, dataLimit);
 }
 
+let lastDisplayedTools;
+let lastDataLimit;
+
 const displayData = (tools, dataLimit) => {
+    lastDisplayedTools = tools;
+    lastDataLimit = dataLimit;
     const cardsContainer = document.getElementById('cards-container');
     const btnShowMore = document.getElementById('btn-see-more');
     if (dataLimit && dataLimit < tools.length) {
@@ -46,35 +50,34 @@ const displayData = (tools, dataLimit) => {
         cardsContainer.appendChild(card);
         showFeatures(tool.features, tool.id);
     });
-
-    const sorting = (a, b) => {
-        const dateA = new Date(a.published_in);
-        const dateB = new Date(b.published_in);
-        if (dateA > dateB) {
-            return 1;
-        }
-        else if (dateA < dateB) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
-    }
-
-    document.getElementById('btn-sort-by').addEventListener('click', function () {
-        emptyDataContainer();
-        progressBar(true);
-        const sortedData = tools.sort(sorting);
-        if (sortedData.length === dataLimit) {
-            displayData(sortedData);
-            btnShowMore.classList.remove('hidden');
-        }
-        else {
-            displayData(sortedData);
-        }
-    });
     progressBar(false);
 }
+
+const sorting = (a, b) => {
+    const dateA = new Date(a.published_in);
+    const dateB = new Date(b.published_in);
+    if (dateA > dateB) {
+        return 1;
+    }
+    else if (dateA < dateB) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
+
+document.getElementById('btn-sort-by').addEventListener('click', function () {
+    emptyDataContainer();
+    progressBar(true);
+    const sortedData = lastDisplayedTools.sort(sorting);
+    if (lastDataLimit) {
+        displayData(sortedData, lastDataLimit);
+    }
+    else {
+        displayData(sortedData);
+    }
+});
 
 const showFeatures = (features, id) => {
     const FeaturesDiv = document.getElementById(`feature-${id}`);
@@ -230,8 +233,4 @@ const processModal = (id) => {
     loadDetailsModal(id);
 }
 
-// document.getElementById('btn-sort-by').addEventListener('click', function () {
-//     console.log('aaa')
-// });
-
-processData(dataLimit);
+processData(6);
